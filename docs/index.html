@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>@three-ws/sign-language: American Sign Language for 3D avatars</title>
+<meta name="description" content="American Sign Language for 3D avatars. Compile text into one continuous signed animation clip: known words sign from a lexicon of anatomically described signs, everything else fingerspells, with contact solving and non-manual facial markers. Zero runtime dependencies.">
+<link rel="canonical" href="https://nirholas.github.io/sign-language/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="three.ws">
+<meta property="og:title" content="@three-ws/sign-language">
+<meta property="og:description" content="American Sign Language for 3D avatars. Compile text into one continuous signed animation clip: known words sign from a lexicon of anatomically described signs, everything else fingerspells, with contact solving and non-manual facial markers. Zero runtime dependencies.">
+<meta property="og:url" content="https://nirholas.github.io/sign-language/">
+<meta property="og:image" content="https://nirholas.github.io/sign-language/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="@three-ws/sign-language">
+<meta name="twitter:description" content="American Sign Language for 3D avatars. Compile text into one continuous signed animation clip: known words sign from a lexicon of anatomically described signs, everything else fingerspells, with contact solving and non-manual facial markers. Zero runtime dependencies.">
+<meta name="twitter:image" content="https://nirholas.github.io/sign-language/og.png">
+<meta name="keywords" content="asl, american-sign-language, sign-language, fingerspelling, accessibility, a11y, deaf, animation, avatar, humanoid, rig, skeleton, inverse-kinematics, gltf, glb, 3d, ai-agents, three.ws">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+<link rel="icon" href="https://three.ws/three-ws-mcp-icon.svg" type="image/svg+xml">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"@three-ws/sign-language","description":"American Sign Language for 3D avatars. Compile text into one continuous signed animation clip: known words sign from a lexicon of anatomically described signs, everything else fingerspells, with contact solving and non-manual facial markers. Zero runtime dependencies.","codeRepository":"https://github.com/nirholas/sign-language","programmingLanguage":"JavaScript","license":"https://spdx.org/licenses/Apache-2.0.html","version":"0.1.1","url":"https://nirholas.github.io/sign-language/","author":{"@type":"Organization","name":"three.ws","url":"https://three.ws"},"keywords":"asl, american-sign-language, sign-language, fingerspelling, accessibility, a11y, deaf, animation, avatar, humanoid, rig, skeleton, inverse-kinematics, gltf, glb, 3d, ai-agents, three.ws"}</script>
+<style>:root{--bg:#fff;--fg:#111418;--mut:#586069;--line:#e3e6ea;--acc:#2563eb;--code:#f4f6f8;--card:#fafbfc}
+@media(prefers-color-scheme:dark){:root{--bg:#0b0d10;--fg:#e8eaed;--mut:#9aa3ad;--line:#232830;--acc:#6ea0ff;--code:#14181d;--card:#10141a}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+a{color:var(--acc)}a:focus-visible,button:focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:4px}
+header.bar{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar-in{max-width:1100px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.brand{font-weight:700;text-decoration:none;color:var(--fg)}
+.bar nav{margin-left:auto;display:flex;gap:16px;font-size:14px}
+.bar nav a{color:var(--mut);text-decoration:none;transition:color .15s}.bar nav a:hover{color:var(--fg)}
+.hero{max-width:1100px;margin:0 auto;padding:48px 16px 24px}
+.hero h1{font-size:clamp(28px,5vw,44px);line-height:1.15;margin:0 0 12px;letter-spacing:-.02em}
+.hero p{color:var(--mut);max-width:70ch;font-size:18px;margin:0 0 24px}
+.install{display:flex;align-items:center;gap:8px;max-width:620px;background:var(--code);border:1px solid var(--line);border-radius:10px;padding:6px 6px 6px 14px}
+.install code{flex:1;overflow-x:auto;white-space:nowrap;font:14px ui-monospace,SFMono-Regular,Menlo,monospace}
+.install button{border:0;background:var(--acc);color:#fff;border-radius:7px;padding:8px 14px;font:600 13px system-ui;cursor:pointer;transition:transform .12s,opacity .12s}
+.install button:hover{opacity:.9}.install button:active{transform:scale(.96)}
+.cta{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.cta a{padding:9px 16px;border:1px solid var(--line);border-radius:8px;text-decoration:none;font-weight:600;font-size:14px;color:var(--fg);transition:border-color .15s,transform .15s}
+.cta a:hover{border-color:var(--acc);transform:translateY(-1px)}.cta a.pri{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.layout{max-width:1100px;margin:0 auto;padding:8px 16px 64px;display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:40px}
+@media(max-width:860px){.layout{grid-template-columns:minmax(0,1fr)}.toc{display:none}}
+.toc{position:sticky;top:76px;align-self:start;font-size:14px;border-left:1px solid var(--line);padding-left:16px}
+.toc p{margin:0 0 8px;font-weight:700;color:var(--mut);text-transform:uppercase;font-size:12px;letter-spacing:.06em}
+.toc ul{list-style:none;margin:0;padding:0}.toc li{margin:6px 0}.toc a{color:var(--mut);text-decoration:none}.toc a:hover{color:var(--fg)}
+main{min-width:0;overflow-wrap:anywhere}main pre code{overflow-wrap:normal}main img{max-width:100%;height:auto}
+main h2{margin-top:2.2em;padding-bottom:.3em;border-bottom:1px solid var(--line)}
+.anchor{margin-left:-1.1em;padding-right:.4em;text-decoration:none;opacity:0;color:var(--mut)}h2:hover .anchor,h3:hover .anchor,h4:hover .anchor{opacity:1}
+pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow-x:auto;font-size:14px;line-height:1.5}
+code{font:0.9em ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--code);padding:.15em .35em;border-radius:5px}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow-x:auto;max-width:100%}th,td{border:1px solid var(--line);padding:8px 12px;text-align:left}th{background:var(--card)}
+blockquote{margin:1em 0;padding:.2em 1em;border-left:4px solid var(--line);color:var(--mut)}
+footer{border-top:1px solid var(--line);color:var(--mut);font-size:14px}
+.foot-in{max-width:1100px;margin:0 auto;padding:24px 16px;display:flex;gap:16px;flex-wrap:wrap}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}</style>
+</head>
+<body>
+<header class="bar"><div class="bar-in">
+<a class="brand" href="https://nirholas.github.io/sign-language/">@three-ws/sign-language</a>
+<nav aria-label="Project links"><a href="https://github.com/nirholas/sign-language">GitHub</a><a href="https://www.npmjs.com/package/@three-ws/sign-language">npm</a><a href="llms.txt">llms.txt</a><a href="https://three.ws">three.ws</a></nav>
+</div></header>
+<section class="hero">
+<h1>@three-ws/sign-language</h1>
+<p>American Sign Language for 3D avatars. Compile text into one continuous signed animation clip: known words sign from a lexicon of anatomically described signs, everything else fingerspells, with contact solving and non-manual facial markers. Zero runtime dependencies.</p>
+<div class="install" role="group" aria-label="Install command"><code>npm install @three-ws/sign-language</code><button type="button" data-copy="npm install @three-ws/sign-language">Copy</button></div>
+<div class="cta"><a class="pri" href="https://github.com/nirholas/sign-language">View on GitHub</a><a href="https://github.com/nirholas/sign-language/stargazers">Star the repo</a></div>
+</section>
+<div class="layout">
+<main id="content"><h1>@three-ws/sign-language</h1>
+<p>American Sign Language for 3D avatars. Compile text into one continuous signed animation clip: words the lexicon knows are signed from anatomical descriptions (handshape, place on the body, movement), everything else fingerspells with the manual alphabet, and non-manual facial markers ride along. Zero runtime dependencies: no three.js, no DOM, no network. The same module runs in a browser, in Node, and in a test runner.</p>
+<p>This package is the published build of the engine that powers <a href="https://three.ws/sign-language">three.ws/sign-language</a> and the <code>/docs/sign-language</code> feature. Clips come out as the same clip-JSON document the three.ws animation library serves, so they retarget onto any humanoid rig with finger bones.</p>
+<h2 id="install"><a class="anchor" href="#install" aria-label="Link to this section">#</a>Install</h2>
+<pre><code class="language-bash">npm i @three-ws/sign-language
+</code></pre>
+<h2 id="compile-a-sentence"><a class="anchor" href="#compile-a-sentence" aria-label="Link to this section">#</a>Compile a sentence</h2>
+<pre><code class="language-js">import { compileUtterance, signLookup, signGloss } from &#39;@three-ws/sign-language&#39;;
+
+const signs = signLookup({ dominant: &#39;Right&#39; });
+const { clip, signed, spelled } = compileUtterance(&#39;happy to meet you&#39;, { signs });
+
+console.log(signed);            // words signed from the lexicon
+console.log(spelled);           // words that fingerspelled instead
+console.log(signGloss(&#39;happy&#39;)); // human-readable description of the sign
+console.log(clip.duration, clip.tracks.length);
+</code></pre>
+<p><code>clip</code> is a plain three.js <code>AnimationClip</code> JSON document. Parse it with <code>AnimationClip.parse(clip)</code> in a three.js app, or feed it to the three.ws animation pipeline as-is.</p>
+<p>A runnable version of this lives in <a href="https://github.com/nirholas/sign-language/blob/main/example/compile-utterance.mjs">example/compile-utterance.mjs</a>:</p>
+<pre><code class="language-bash">node example/compile-utterance.mjs &quot;happy to meet you&quot;
+</code></pre>
+<h2 id="speak-alongside-chat"><a class="anchor" href="#speak-alongside-chat" aria-label="Link to this section">#</a>Speak alongside chat</h2>
+<p><code>SignSpeaker</code> sequences utterances for a live conversation (chat replies, captions) with the pacing constants in <code>CHAT_TIMING</code>, and <code>estimateDuration</code> / <code>utteranceWords</code> let a UI plan ahead without compiling:</p>
+<pre><code class="language-js">import { SignSpeaker, estimateDuration } from &#39;@three-ws/sign-language&#39;;
+
+// `manager` is anything with { injectClip(name, clip, opts), playOnce(name, opts) }:
+// the three.ws AnimationManager, or a thin adapter over your own player.
+const speaker = new SignSpeaker({ manager, dominant: &#39;Right&#39; });
+
+console.log(estimateDuration(&#39;nice to meet you&#39;)); // seconds, before compiling
+const { signed, spelled } = await speaker.speak(&#39;nice to meet you&#39;); // resolves when the signing ends
+speaker.cancel(); // abandon an utterance; a newer speak() supersedes an older one
+</code></pre>
+<p><code>SignSpeaker</code> needs a manager: it drives an avatar. To get a clip without one, call <code>compileUtterance</code> directly, as above.</p>
+<h2 id="the-five-layers"><a class="anchor" href="#the-five-layers" aria-label="Link to this section">#</a>The five layers</h2>
+<p>The public surface is organised the way the engine is built; import from any layer:</p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Exports</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>speak</td>
+<td><code>SignSpeaker</code>, <code>compileUtterance</code>, <code>estimateDuration</code>, <code>utteranceWords</code>, <code>CHAT_TIMING</code></td>
+<td>Text in, one continuous signed clip out, with no seam between signed and fingerspelled words</td>
+</tr>
+<tr>
+<td>spell</td>
+<td><code>buildFingerspellingClip</code>, <code>letterPose</code>, <code>LETTER_SHAPES</code>, <code>DEFAULT_TIMING</code>, <code>normalizeWord</code></td>
+<td>The manual alphabet: A-Z, 0-9, the traced J and Z, the double-letter bounce</td>
+</tr>
+<tr>
+<td>lexicon</td>
+<td><code>SIGNS</code>, <code>SIGNABLE_WORDS</code>, <code>buildSignClip</code>, <code>lookupSign</code>, <code>signGloss</code>, <code>signLookup</code>, <code>DEFAULT_SIGN_TIMING</code></td>
+<td>The sign vocabulary, each entry a set of phases described anatomically</td>
+</tr>
+<tr>
+<td>author</td>
+<td><code>HANDSHAPES</code>, <code>applyHandshape</code>, <code>SignTimeline</code>, <code>place</code>, <code>direction</code>, <code>poseHand</code>, <code>posePhase</code>, <code>faceWeights</code>, <code>mirrorPhase</code>, <code>neutralPose</code>, <code>restingPose</code>, <code>SIGNING_BONES</code>, <code>FACE_MARKERS</code></td>
+<td>The layer signs are written in: handshapes, body anchors, contact solving, non-manual markers, timelines</td>
+</tr>
+<tr>
+<td>kinematics</td>
+<td><code>Pose</code>, <code>solveArm</code>, <code>anchorPoint</code>, <code>fingerBones</code>, <code>fingerTip</code>, <code>wristPosition</code>, <code>restWorld</code>, <code>ANCHORS</code>, <code>FINGERS</code>, <code>FINGER_JOINTS</code> and friends</td>
+<td>Canonical-skeleton math: forward kinematics, two-bone arm IK, hand geometry</td>
+</tr>
+</tbody></table>
+<p>Add a word to the vocabulary by authoring phases in the same anatomical vocabulary <code>SIGNS</code> uses and passing your extended lookup to <code>compileUtterance</code>; nothing else changes.</p>
+<h2 id="play-a-clip-on-an-avatar"><a class="anchor" href="#play-a-clip-on-an-avatar" aria-label="Link to this section">#</a>Play a clip on an avatar</h2>
+<p>On three.ws every humanoid avatar plays these clips natively. In your own three.js app:</p>
+<pre><code class="language-js">import { AnimationClip, AnimationMixer } from &#39;three&#39;;
+
+const parsed = AnimationClip.parse(clip);
+const mixer = new AnimationMixer(avatarRoot);
+mixer.clipAction(parsed).play();
+</code></pre>
+<p>Track names target the canonical Avaturn-style bone set (<code>Hips</code>, <code>RightHand</code>, <code>RightHandIndex1</code>, ...). A rig with different bone names retargets through the three.ws pipeline (<code>src/glb-canonicalize.js</code> + <code>src/animation-retarget.js</code> in the <a href="https://github.com/nirholas/three.ws">monorepo</a>), which maps Mixamo, VRM, Daz, MakeHuman and other conventions automatically.</p>
+<h2 id="what-this-is-and-what-it-is-not"><a class="anchor" href="#what-this-is-and-what-it-is-not" aria-label="Link to this section">#</a>What this is, and what it is not</h2>
+<p>Read this before shipping it to users.</p>
+<p>This renders <strong>English word order using an ASL lexicon and the manual alphabet</strong>. It does not produce ASL grammar, which has its own syntax, topic-comment structure, spatial reference, and classifier system. A fluent signer will recognise the vocabulary and read the sentence; they will also recognise that it is not native ASL. That is a deliberate, honest limit of a text-driven renderer, not a bug to file.</p>
+<p>Practical consequences:</p>
+<ul>
+<li><strong>Present it alongside text, not instead of it.</strong> It is assistive presentation, not a certified interpreter, and it should never be the only channel for anything that matters (safety information, legal terms, medical instruction).</li>
+<li><strong>Fingerspelling is the honest fallback.</strong> When a word is not in the lexicon the compiler spells it rather than guessing at a similar sign. A wrong sign reads as a different word; a spelled one reads as a spelled word.</li>
+<li><strong>Have Deaf signers review anything user-facing.</strong> <code>signGloss()</code> returns each sign&#39;s plain-English description precisely so a reviewer who does not read code can audit the vocabulary.</li>
+<li><strong>Non-manual markers carry grammar.</strong> Brow position distinguishes a yes/no question from a wh- question, so stripping the face lanes to save tracks changes meaning rather than just fidelity.</li>
+</ul>
+<h2 id="development"><a class="anchor" href="#development" aria-label="Link to this section">#</a>Development</h2>
+<p>The package is a thin published surface over the monorepo engine (<code>src/sign-*.js</code> at the repo root):</p>
+<pre><code class="language-bash">npm run build    # bundle src re-exports into dist/index.mjs (esbuild, no deps)
+npm test         # node --test: guards the published surface + dependency-freeness
+npm run example  # compile &quot;happy to meet you&quot; to example/utterance.clip.json
+</code></pre>
+<p>Both <code>npm test</code> and <code>npm run example</code> read <code>dist/</code>, so each rebuilds it first
+(<code>pretest</code> / <code>preexample</code>): a fresh clone runs them with no extra step.</p>
+<p>Deep engine coverage lives in the monorepo suite (<code>tests/sign-rig</code>, <code>sign-clip</code>, <code>sign-dictionary</code>, <code>fingerspelling</code>, <code>sign-speech</code>, <code>sign-goldens</code>, <code>sign-linguistics</code>).</p>
+<h2 id="related"><a class="anchor" href="#related" aria-label="Link to this section">#</a>Related</h2>
+<ul>
+<li>Live feature and docs: <a href="https://three.ws/sign-language">three.ws/sign-language</a>, <a href="https://three.ws/docs/sign-language">three.ws/docs/sign-language</a></li>
+<li>Tutorial: <a href="https://three.ws/docs/tutorials/sign-with-your-avatar">Sign with your avatar</a></li>
+<li>License: <a href="https://github.com/nirholas/sign-language/blob/main/LICENSE">LICENSE</a></li>
+</ul>
+</main>
+<nav class="toc" aria-label="On this page"><p>On this page</p><ul><li><a href="#install">Install</a></li><li><a href="#compile-a-sentence">Compile a sentence</a></li><li><a href="#speak-alongside-chat">Speak alongside chat</a></li><li><a href="#the-five-layers">The five layers</a></li><li><a href="#play-a-clip-on-an-avatar">Play a clip on an avatar</a></li><li><a href="#what-this-is-and-what-it-is-not">What this is, and what it is not</a></li><li><a href="#development">Development</a></li><li><a href="#related">Related</a></li></ul></nav>
+</div>
+<footer><div class="foot-in"><span>Apache-2.0 licensed</span><a href="https://github.com/nirholas/sign-language/issues">Issues</a><a href="https://github.com/nirholas/sign-language/blob/main/CONTRIBUTING.md">Contributing</a><a href="https://github.com/nirholas/sign-language/security/policy">Security</a><a href="https://three.ws">Part of three.ws</a></div></footer>
+<script>document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){
+var t=b.getAttribute('data-copy');var done=function(){var o=b.textContent;b.textContent='Copied';setTimeout(function(){b.textContent=o},1400)};
+if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,function(){})}
+else{var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');done()}catch(e){}a.remove()}})});</script>
+</body>
+</html>
